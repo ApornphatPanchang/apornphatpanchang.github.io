@@ -115,8 +115,8 @@
   }
   .id-photo{ width: 190px; height: 190px; border-radius: 50%; overflow: hidden; background: var(--surface-2); position: relative; margin: 30px auto 6px; }
   .id-photo img{
-    width: 100%; height: 100%; object-fit: cover; object-position: center 25%;
-    display: block; filter: grayscale(1) contrast(1.06);
+    width: 100%; height: 100%; object-fit: cover; object-position: center 0%;
+    display: block;
   }
   .id-facts{ padding: 20px 22px 22px; font-family: 'JetBrains Mono', monospace; }
   .id-row{ display: flex; justify-content: space-between; align-items: baseline; gap: 14px; padding: 8px 0; border-bottom: 1px dashed var(--line); font-size: 0.8rem; }
@@ -211,10 +211,11 @@
   .t-desc{ color: var(--text-dim); font-size: 0.92rem; }
   .t-shot{
     margin-top: 12px; width: 100%; max-width: 320px; height: 110px; border-radius: 6px;
-    background: var(--surface-2); border: 1px dashed var(--line);
+    background: var(--surface-2); border: 1px solid var(--line); overflow: hidden;
     display: flex; align-items: center; justify-content: center;
-    font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--text-dim); text-align: center; padding: 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--text-dim); text-align: center; padding: 0;
   }
+  .t-shot img{ width: 100%; height: 100%; object-fit: cover; display: block; }
   .t-shot-row{ display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
   .t-shot-row .t-shot{ margin-top: 0; flex: 1 1 220px; max-width: 320px; }
 
@@ -259,12 +260,12 @@
     display: flex; transition: transform 0.35s ease;
   }
   .shot-slide{
-    flex: 0 0 100%; aspect-ratio: 16/9;
+    flex: 0 0 100%; aspect-ratio: 3/4;
     display: flex; align-items: center; justify-content: center;
     background: var(--surface-2);
   }
   .shot-slide img, .shot-slide video{
-    width: 100%; height: 100%; object-fit: cover; display: block;
+    width: 100%; height: 100%; object-fit: contain; display: block;
   }
   .shot-slide .placeholder{
     font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-dim);
@@ -541,8 +542,8 @@
           <div class="t-org">กิจกรรมด้าน Cybersecurity</div>
           <div class="t-desc">ได้รับความรู้ทั้งด้าน Cybersecurity รวมถึงการปฏิบัติจริง ได้เรียนรู้แนวโน้มของอาชีพในสาย Cybersecurity ทักษะที่จำเป็นสำหรับการทำงานในอนาคต ความสำคัญของโครงสร้างพื้นฐานด้านความมั่นคงปลอดภัยไซเบอร์ และการประยุกต์ใช้ปัญญาประดิษฐ์ในการป้องกันและตรวจจับภัยคุกคาม</div>
           <div class="t-shot-row">
-            <div class="t-shot">[รูปที่ 1: Bu Cyber Fortress Challenge &amp; Career Expo]</div>
-            <div class="t-shot">[รูปที่ 2: Bu Cyber Fortress Challenge &amp; Career Expo]</div>
+            <div class="t-shot"><img src="BuCyber-1.jpg" alt="Bu Cyber Fortress Challenge &amp; Career Expo 1"></div>
+            <div class="t-shot"><img src="BuCyber-2.jpg" alt="Bu Cyber Fortress Challenge &amp; Career Expo 2"></div>
           </div>
         </div>
       </div>
@@ -553,8 +554,8 @@
           <div class="t-org">ตัวแทนจัดบูทเผยแพร่ความรู้เกี่ยวกับวิชาโปรเจกต์</div>
           <div class="t-desc">เป็นตัวแทนไปจัดบูทเผยแพร่ความรู้เกี่ยวกับวิชาโปรเจกต์ และเข้าร่วมงานเพื่อเรียนรู้การประยุกต์ใช้ปัญญาประดิษฐ์ในการทำงานจริง ทั้งด้านการพัฒนาซอฟต์แวร์ การแก้ปัญหาทางธุรกิจ และแนวโน้มของอุตสาหกรรมเทคโนโลยีในอนาคต พร้อมพบปะบริษัทชั้นนำในกิจกรรม Mini Job Fair เพื่อสร้างเครือข่ายและเตรียมความพร้อมสำหรับการประกอบอาชีพด้านเทคโนโลยี</div>
           <div class="t-shot-row">
-            <div class="t-shot">[รูปที่ 1: IT Empowering Day in the Era of AI]</div>
-            <div class="t-shot">[รูปที่ 2: IT Empowering Day in the Era of AI]</div>
+            <div class="t-shot"><img src="ITEmpowering-1.jpg" alt="IT Empowering Day in the Era of AI 1"></div>
+            <div class="t-shot"><img src="ITEmpowering-2.jpg" alt="IT Empowering Day in the Era of AI 2"></div>
           </div>
         </div>
       </div>
