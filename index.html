@@ -65,7 +65,7 @@
   .logo{ font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.02em; }
   .logo span{ color: var(--text-dim); }
   .navlinks{ display: flex; gap: 22px; list-style: none; flex-wrap: wrap; }
-  .navlinks a{ color: var(--text-dim); text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: color 0.2s; }
+  .navlinks a{ color: var(--text-dim); text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: color 0.2s; text-transform: uppercase; letter-spacing: 0.04em; }
   .navlinks a:hover{ color: var(--black); }
   .navtoggle{ display:none; background:none; border:none; color: var(--text); font-size: 1.4rem; cursor:pointer; }
 
@@ -93,10 +93,10 @@
     font-family: 'JetBrains Mono', monospace; position: relative; overflow: hidden;
   }
   .readout::before{ content: ""; position: absolute; top:0; left:0; right:0; height:3px; background: var(--black); }
-  .readout .row{ display: flex; justify-content: space-between; align-items: baseline; padding: 9px 0; border-bottom: 1px dashed var(--line); font-size: 0.84rem; }
+  .readout .row{ display: flex; justify-content: space-between; align-items: baseline; padding: 9px 0; border-bottom: 1px dashed var(--line); font-size: 0.84rem; gap: 10px; }
   .readout .row:last-child{ border-bottom: none; }
-  .readout .row .k{ color: var(--text-dim); }
-  .readout .row .v{ color: var(--text); font-weight: 500; }
+  .readout .row .k{ color: var(--text-dim); white-space: nowrap; }
+  .readout .row .v{ color: var(--text); font-weight: 500; text-align: right; }
   .dot{ display:inline-block; width:8px; height:8px; border-radius:50%; background: var(--black); margin-right: 8px; animation: pulse 2s infinite; }
   @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:0.35;} }
 
@@ -107,6 +107,25 @@
     font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.6rem;
     color: var(--text-dim); margin-bottom: 22px;
   }
+
+  /* Hero ID card (photo + facts) */
+  .id-card{
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); overflow: hidden;
+  }
+  .id-photo{ width: 190px; height: 190px; border-radius: 50%; overflow: hidden; background: var(--surface-2); position: relative; margin: 30px auto 6px; }
+  .id-photo img{
+    width: 100%; height: 100%; object-fit: cover; object-position: center 25%;
+    display: block; filter: grayscale(1) contrast(1.06);
+  }
+  .id-facts{ padding: 20px 22px 22px; font-family: 'JetBrains Mono', monospace; }
+  .id-row{ display: flex; justify-content: space-between; align-items: baseline; gap: 14px; padding: 8px 0; border-bottom: 1px dashed var(--line); font-size: 0.8rem; }
+  .id-row:last-of-type{ border-bottom: none; }
+  .id-row .k{ color: var(--text-dim); white-space: nowrap; }
+  .id-row .v{ color: var(--text); font-weight: 500; text-align: right; }
+  .id-address{ margin-top: 6px; padding-top: 12px; border-top: 1px dashed var(--line); }
+  .id-address .k{ display: block; color: var(--text-dim); font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+  .id-address .v{ font-weight: 500; font-size: 0.82rem; line-height: 1.55; }
 
   /* ---------- SECTIONS ---------- */
   section{ padding: 80px 0; border-top: 1px solid var(--line); }
@@ -139,6 +158,7 @@
 
   /* Projects */
   .projects-grid{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .projects-grid .card.wide{ grid-column: 1 / -1; }
   .card{
     background: var(--surface); border: 1px solid var(--line);
     border-radius: var(--radius); padding: 26px;
@@ -148,11 +168,20 @@
   .card:hover{ border-color: var(--black); transform: translateY(-4px); }
   .card-tag{ font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--text-dim); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 10px; }
   .card h3{ font-size: 1.15rem; margin-bottom: 10px; }
-  .card p{ color: var(--text-dim); font-size: 0.92rem; margin-bottom: 18px; flex-grow: 1; }
+  .card p{ color: var(--text-dim); font-size: 0.92rem; margin-bottom: 14px; }
+  .card ul.feat-list{ color: var(--text-dim); font-size: 0.88rem; margin: 0 0 18px 18px; flex-grow: 1; }
+  .card ul.feat-list li{ margin-bottom: 6px; }
   .card-stack{ display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
   .chip{ font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; padding: 4px 10px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 100px; color: var(--text-dim); }
   .card-link{ color: var(--black); text-decoration: none; font-weight: 600; font-size: 0.88rem; display: inline-flex; align-items: center; gap: 6px; border-bottom: 1px solid var(--black); width: fit-content; padding-bottom: 2px; }
   .card-link:hover{ color: var(--text-dim); border-color: var(--text-dim); }
+  .card-links{ display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: auto; padding-top: 4px; }
+  .card-video{
+    width: 100%; aspect-ratio: 16/9; border-radius: 6px; margin-bottom: 16px;
+    background: var(--surface-2); border: 1px dashed var(--line);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-dim); text-align: center; padding: 10px;
+  }
   .card-shot{
     width: 100%; height: 140px; border-radius: 6px; margin-bottom: 16px;
     background: var(--surface-2); border: 1px dashed var(--line);
@@ -186,6 +215,8 @@
     display: flex; align-items: center; justify-content: center;
     font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--text-dim); text-align: center; padding: 8px;
   }
+  .t-shot-row{ display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+  .t-shot-row .t-shot{ margin-top: 0; flex: 1 1 220px; max-width: 320px; }
 
   .cert-grid{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
   .cert-card{
@@ -195,11 +226,16 @@
   .cert-card h3{ font-size: 1rem; margin-bottom: 6px; }
   .cert-card .issuer{ color: var(--text-dim); font-size: 0.86rem; margin-bottom: 4px; }
   .cert-card .date{ font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--text-dim); }
+  .cert-empty{
+    grid-column: 1 / -1; border: 1px dashed var(--line); border-radius: var(--radius);
+    padding: 30px; text-align: center; color: var(--text-dim); font-size: 0.92rem;
+  }
 
   /* Contact */
   .contact-box{ background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 44px; text-align: center; }
   .contact-box p{ color: var(--text-dim); margin-bottom: 26px; max-width: 46ch; margin-left:auto; margin-right:auto; }
   .contact-links{ display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+  .contact-meta{ margin-top: 26px; padding-top: 26px; border-top: 1px dashed var(--line); color: var(--text-dim); font-size: 0.86rem; }
 
   /* Social */
   .social-grid{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
@@ -213,6 +249,47 @@
   .social-card .handle{ font-weight: 600; }
 
   footer{ padding: 32px 0; text-align: center; color: var(--text-dim); font-size: 0.82rem; font-family: 'JetBrains Mono', monospace; border-top: 1px solid var(--line); }
+
+  /* ---------- SHOT CAROUSEL ---------- */
+  .shot-carousel{
+    position: relative; width: 100%; border-radius: 6px; overflow: hidden;
+    margin-bottom: 16px; background: var(--surface-2); border: 1px solid var(--line);
+  }
+  .shot-track{
+    display: flex; transition: transform 0.35s ease;
+  }
+  .shot-slide{
+    flex: 0 0 100%; aspect-ratio: 16/9;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--surface-2);
+  }
+  .shot-slide img, .shot-slide video{
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .shot-slide .placeholder{
+    font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-dim);
+    text-align: center; padding: 10px;
+  }
+  .shot-nav{
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 32px; height: 32px; border-radius: 50%;
+    background: rgba(255,255,255,0.85); border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 1rem;
+    color: var(--text); user-select: none; transition: background 0.15s;
+  }
+  .shot-nav:hover{ background: #fff; }
+  .shot-prev{ left: 10px; }
+  .shot-next{ right: 10px; }
+  .shot-dots{
+    position: absolute; bottom: 10px; left: 0; right: 0;
+    display: flex; justify-content: center; gap: 6px;
+  }
+  .shot-dot{
+    width: 7px; height: 7px; border-radius: 50%; background: rgba(0,0,0,0.25);
+    cursor: pointer; border: none; padding: 0;
+  }
+  .shot-dot.active{ background: var(--black); }
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width: 800px){
@@ -240,148 +317,212 @@
   <div class="wrap">
     <div class="logo">apornphat<span>.</span>panchang</div>
     <ul class="navlinks" id="navlinks">
-      <li><a href="#about">เกี่ยวกับฉัน</a></li>
-      <li><a href="#projects">ผลงาน</a></li>
-      <li><a href="#skills">ทักษะ</a></li>
-      <li><a href="#activities">กิจกรรม</a></li>
-      <li><a href="#certifications">ใบรับรอง</a></li>
-      <li><a href="#experience">ประสบการณ์</a></li>
-      <li><a href="#contact">ติดต่อ</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#activities">Activities</a></li>
+      <li><a href="#certifications">Certifications</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
     <button class="navtoggle" id="navtoggle" aria-label="เปิดเมนู">☰</button>
   </div>
 </nav>
 
+<!-- ===== HERO ===== -->
+<header class="hero" style="border-top:none; padding-top:64px;">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Portfolio</div>
+      <h1>Apornphat Panchang</h1>
+      <p style="font-family:'JetBrains Mono', monospace; font-size:0.95rem; color: var(--text-dim); margin: -8px 0 18px;">Computer Science Student</p>
+      <p class="lead">Looking for job opportunities. Always open to learning new things — technology, skills, or work experience I haven't tried before.</p>
+    </div>
+    <div class="id-card">
+      <div class="id-photo">
+        <img src="Profile.jpg" alt="Apornphat Panchang (Waii)">
+      </div>
+      <div class="id-facts">
+        <div class="id-row"><span class="k">name</span><span class="v">Apornphat Panchang</span></div>
+        <div class="id-row"><span class="k">nickname</span><span class="v">Waii</span></div>
+        <div class="id-row"><span class="k">age</span><span class="v">21</span></div>
+        <div class="id-row"><span class="k">date_of_birth</span><span class="v">10 Dec 2004</span></div>
+        <div class="id-row"><span class="k">gender</span><span class="v">Female</span></div>
+        <div class="id-row"><span class="k">nationality</span><span class="v">Thai</span></div>
+        <div class="id-row"><span class="k">interested_occupation</span><span class="v">Data Analyst</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
 <!-- ===== 1. ABOUT ME ===== -->
-<section id="about" style="border-top:none; padding-top:120px;">
+<section id="about">
   <div class="wrap">
-    <div class="eyebrow">About</div>
-    <h2>เกี่ยวกับฉัน</h2>
+    <h2 style="font-size: clamp(2rem, 4vw, 2.6rem);">About Me</h2>
 
-    <div class="about-top-grid">
-      <div class="about-intro">
-        <div class="avatar">AP</div>
-        <p>
-          [เขียนประวัติโดยย่อของคุณ 2-3 ประโยคตรงนี้ เช่น ความสนใจในการเขียนโปรแกรม
-          จุดเริ่มต้นที่ทำให้สนใจสาย IoT และ Mobile Development และเป้าหมายในการทำงานหลังเรียนจบ]
-        </p>
-        <p>
-          [ย่อหน้าที่สอง อาจเล่าถึงแนวทางการทำงาน เช่น ชอบเรียนรู้เทคโนโลยีใหม่ ๆ
-          และลงมือทำโปรเจกต์จริงเพื่อฝึกฝนทักษะ พร้อมทั้งกำลังต่อยอดความรู้ด้าน Data Analytics]
-        </p>
-      </div>
-      <div class="readout">
-        <div class="row"><span class="k"><span class="dot"></span>status</span><span class="v">available for opportunities</span></div>
-        <div class="row"><span class="k">field</span><span class="v">software · iot · mobile</span></div>
-        <div class="row"><span class="k">exploring</span><span class="v">data analytics</span></div>
-        <div class="row"><span class="k">based_in</span><span class="v">Bangkok, Thailand</span></div>
-        <div class="row"><span class="k">languages</span><span class="v">Thai, English</span></div>
-      </div>
+    <div class="about-intro" style="max-width: 70ch; margin-bottom: 12px;">
+      <p>
+        Currently studying Computer Science at the School of Information Technology and Innovation, Bangkok University.
+        Hands-on experience with IoT and mobile app development through class projects, including an IoT-based focus
+        monitoring system and a vocabulary app powered by AI for pronunciation and example sentence generation.
+      </p>
     </div>
 
-    <div class="sub-h">การศึกษา</div>
+    <div class="sub-h">Education</div>
     <div class="fact-grid">
-      <div class="fact-card"><span class="k">education</span><span class="v">Bangkok University (Rangsit Campus)<br>คณะ [ใส่ชื่อคณะ] สาขา [ใส่ชื่อสาขา]</span></div>
-      <div class="fact-card"><span class="k">expected_grad</span><span class="v">[ใส่ปีที่คาดว่าจะจบ]</span></div>
-      <div class="fact-card"><span class="k">interests</span><span class="v">IoT Systems, Mobile Development, Data Analytics</span></div>
-      <div class="fact-card"><span class="k">tools</span><span class="v">GitHub, VS Code, Figma</span></div>
+      <div class="fact-card"><span class="k">2023 – Present</span><span class="v">Bangkok University<br>School of Information Technology and Innovation<br>Major: Computer Science</span></div>
+      <div class="fact-card"><span class="k">2018 – 2023</span><span class="v">Sarasas Witaed Klongluang School</span></div>
+      <div class="fact-card"><span class="k">interests</span><span class="v">Mobile Development, Data Analytics</span></div>
+      <div class="fact-card"><span class="k">tools</span><span class="v">GitHub, Visual Studio, VS Code, Arduino IDE, Figma</span></div>
     </div>
 
-    <div class="sub-h">ทักษะและความเชี่ยวชาญ</div>
+    <div class="sub-h">Skills &amp; Expertise</div>
     <div class="taglist">
       <span class="chip">Mobile App Development</span>
       <span class="chip">IoT Systems</span>
-      <span class="chip">Embedded Programming</span>
-      <span class="chip">Data Analytics (พื้นฐาน)</span>
-      <span class="chip">Web Development</span>
     </div>
-
-    <div class="sub-h">ประสบการณ์การทำงาน</div>
-    <p style="color:var(--text-dim); max-width: 65ch;">[สรุปสั้น ๆ 1-2 บรรทัด — ถ้ายังไม่มีประสบการณ์การทำงาน สามารถเขียนถึงประสบการณ์จากโปรเจกต์วิชาเรียนหรือฝึกงานแทนได้ รายละเอียดเต็มอยู่ใน section "ประสบการณ์การทำงาน" ด้านล่าง]</p>
   </div>
 </section>
 
 <!-- ===== 2. PROJECTS ===== -->
 <section id="projects">
   <div class="wrap">
-    <div class="eyebrow">Selected Work</div>
-    <h2>ผลงาน</h2>
+    <h2 style="font-size: clamp(2rem, 4vw, 2.6rem);">Projects</h2>
     <div class="projects-grid">
 
-      <div class="card">
-        <div class="card-tag">IoT · Edge AI</div>
-        <h3>Smart Study Focus Tracker</h3>
-        <p>ระบบ IoT อัจฉริยะสำหรับวิเคราะห์สมาธิและสภาพแวดล้อมการเรียนแบบ Real-time โดยใช้เซนเซอร์หลายชนิดร่วมกับ ESP32 คำนวณ Focus Score และแสดงผลผ่าน Web Dashboard [เพิ่มเติม: ส่วนที่คุณรับผิดชอบในโปรเจกต์นี้ เช่น ออกแบบวงจร/เขียนโค้ด Firmware/ทำ Dashboard]</p>
-        <div class="card-stack">
-          <span class="chip">C++</span>
-          <span class="chip">ESP32</span>
-          <span class="chip">HTML/JS</span>
-        </div>
-        <a class="card-link" href="https://github.com/ApornphatPanchang/Smart-Study-Focus-Tracker" target="_blank" rel="noopener">ดูโค้ดบน GitHub →</a>
-      </div>
-
-      <div class="card">
-        <div class="card-tag">.NET MAUI · Mobile</div>
+      <div class="card wide">
+        <div class="card-tag">Mobile Application · .NET MAUI</div>
         <h3>Flashcard App — เรียนภาษาไทย-อังกฤษ</h3>
-        <p>แอปพลิเคชันเรียนรู้คำศัพท์ผ่าน Flashcard พร้อมเกมจับคู่ แบบทดสอบ ระบบคะแนน/สตรีค และใช้ AI ช่วยสร้างคำอธิบายการออกเสียงและประโยคตัวอย่าง [เพิ่มเติม: ส่วนที่คุณรับผิดชอบ]</p>
+
+        <div class="shot-carousel" data-carousel>
+          <div class="shot-track">
+            <div class="shot-slide"><img src="flashcard-1.png" alt="Flashcard App หน้าจอ 1"></div>
+            <div class="shot-slide"><img src="flashcard-2.png" alt="Flashcard App หน้าจอ 2"></div>
+            <div class="shot-slide"><img src="flashcard-3.png" alt="Flashcard App หน้าจอ 3"></div>
+            <div class="shot-slide"><img src="flashcard-4.png" alt="Flashcard App หน้าจอ 4"></div>
+            <div class="shot-slide"><img src="flashcard-5.png" alt="Flashcard App หน้าจอ 5"></div>
+            <div class="shot-slide"><img src="flashcard-6.png" alt="Flashcard App หน้าจอ 6"></div>
+            <div class="shot-slide"><img src="flashcard-7.png" alt="Flashcard App หน้าจอ 7"></div>
+            <div class="shot-slide"><img src="flashcard-8.png" alt="Flashcard App หน้าจอ 8"></div>
+            <div class="shot-slide"><img src="flashcard-9.png" alt="Flashcard App หน้าจอ 9"></div>
+            <div class="shot-slide"><img src="flashcard-10.png" alt="Flashcard App หน้าจอ 10"></div>
+          </div>
+          <button class="shot-nav shot-prev" aria-label="ก่อนหน้า">‹</button>
+          <button class="shot-nav shot-next" aria-label="ถัดไป">›</button>
+          <div class="shot-dots"></div>
+        </div>
+
+        <video controls style="width:100%; aspect-ratio:16/9; border-radius:6px; margin-bottom:16px; background:#000;">
+          <source src="FlashCardApp.mp4" type="video/mp4">
+        </video>
+        <p>แอปพลิเคชันเรียนรู้คำศัพท์ผ่าน Flashcard ที่ผู้ใช้สร้าง แก้ไข และจัดหมวดหมู่คำศัพท์เองได้ พร้อมระบบอ่านออกเสียงและแปลความหมายแบบเรียลไทม์ผ่าน AI</p>
+        <ul class="feat-list">
+          <li>ระบบ Login / Register สำหรับผู้ใช้งาน</li>
+          <li>คลังคำศัพท์ (Vocabulary) สร้าง แก้ไข จัดหมวดหมู่ พร้อมอ่านออกเสียง/แปลด้วย AI</li>
+          <li>บทเรียนไวยากรณ์ (Grammar) แบ่งตามระดับชั้น ประถม–มหาวิทยาลัย</li>
+          <li>เกมการศึกษา แบบทดสอบวัดความรู้ทั้งด้าน Vocabulary และ Grammar</li>
+          <li>สื่อเสริมการเรียนรู้ (Watch &amp; Learn) และระบบติดตามความก้าวหน้าแบบ Points และ Streak</li>
+        </ul>
         <div class="card-stack">
+          <span class="chip">C#</span>
           <span class="chip">.NET MAUI</span>
           <span class="chip">SQLite</span>
           <span class="chip">Groq API</span>
+          <span class="chip">Visual Studio 2026</span>
         </div>
-        <a class="card-link" href="#" target="_blank" rel="noopener">ดูโค้ดบน GitHub →</a>
+        <div class="card-links">
+          <a class="card-link" href="FlashCardApp__PROJECT.pdf" target="_blank" rel="noopener">ดูเอกสาร PDF →</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-tag">IoT · Edge AI</div>
+        <h3>ระบบตรวจจับสมาธิของผู้ใช้งาน<br>(Focus Monitoring System)</h3>
+
+        <video controls style="width:100%; aspect-ratio:16/9; border-radius:6px; margin-bottom:16px; background:#000;">
+          <source src="Focus%20Monitoring%20System.mp4" type="video/mp4">
+        </video>
+        <p>ใช้เซนเซอร์วัดแสง การเคลื่อนไหว และเสียงรอบตัว เพื่อประเมินว่าสภาพแวดล้อมเหมาะสมต่อการมีสมาธิหรือไม่ หากพบว่าแสงน้อย มีการเคลื่อนไหว และมีเสียงรบกวนพร้อมกัน ระบบจะแจ้งเตือนด้วย LED และ Buzzer พร้อมส่งข้อมูลขึ้น Cloud เพื่อวิเคราะห์และแสดงผลผ่าน Dashboard แบบเรียลไทม์ทั้งบนมือถือและเว็บ</p>
+        <div class="card-stack">
+          <span class="chip">C++</span>
+          <span class="chip">ESP32</span>
+          <span class="chip">Google Apps Script</span>
+          <span class="chip">Looker Studio</span>
+          <span class="chip">Groq AI API</span>
+        </div>
+        <div class="card-links">
+          <a class="card-link" href="Focus_Monitoring_System.pdf" target="_blank" rel="noopener">ดูเอกสาร PDF →</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-tag">IoT · Embedded Systems</div>
+        <h3>ระบบแจ้งเตือนการลืมปิดประตูตู้เย็น<br>(Smart Refrigerator Door Alert)</h3>
+
+        <video controls style="width:100%; aspect-ratio:16/9; border-radius:6px; margin-bottom:16px; background:#000;">
+          <source src="Smart%20Refrigerator%20Door%20Alert%20.mp4" type="video/mp4">
+        </video>
+        <p>ใช้เซนเซอร์วัดแสงร่วมกับเซนเซอร์วัดระยะ เพื่อตรวจจับว่าประตูตู้เย็นถูกเปิดทิ้งไว้นานเกินไปหรือไม่ หากเปิดค้างต่อเนื่องเกิน 5 วินาที ระบบจะแจ้งเตือนด้วย LED และ Buzzer ทันที และสามารถกดปุ่มรีเซ็ตให้หยุดแจ้งเตือนได้</p>
+        <div class="card-stack">
+          <span class="chip">C++</span>
+          <span class="chip">ESP32</span>
+          <span class="chip">Ultrasonic Sensor</span>
+          <span class="chip">Arduino IDE</span>
+        </div>
+        <div class="card-links">
+          <a class="card-link" href="Smart%20Refrigerator%20Door%20Alert.pdf" target="_blank" rel="noopener">ดูเอกสาร PDF →</a>
+        </div>
       </div>
 
     </div>
-    <p style="margin-top:16px; color:var(--text-dim); font-size:0.85rem;">
-      หมายเหตุ: หากมีโปรเจกต์ที่ออกแบบใน Figma และลิงก์โหลดช้า ให้แคปหน้าจอมาแสดงเพิ่มเติมในการ์ดโปรเจกต์นั้น ๆ ด้วย
-    </p>
   </div>
 </section>
 
 <!-- ===== 3. TECHNICAL SKILLS ===== -->
 <section id="skills">
   <div class="wrap">
-    <div class="eyebrow">Toolbox</div>
-    <h2>ทักษะทางเทคนิค</h2>
+    <h2 style="font-size: clamp(2rem, 4vw, 2.6rem);">Technical Skills</h2>
     <div class="skills-grid">
       <div class="skill-group">
-        <h3>ภาษาด้านคอมพิวเตอร์</h3>
+        <h3>Programming Languages</h3>
         <div class="gauge">
-          <div class="gauge-label"><span>C# / .NET MAUI</span><span class="lvl">proficient</span></div>
-          <div class="gauge-track"><div class="gauge-fill" style="width:80%"></div></div>
+          <div class="gauge-label"><span>C# / .NET MAUI</span><span class="lvl">working knowledge</span></div>
+          <div class="gauge-track"><div class="gauge-fill" style="width:50%"></div></div>
         </div>
         <div class="gauge">
-          <div class="gauge-label"><span>C++ (Embedded/Arduino)</span><span class="lvl">proficient</span></div>
-          <div class="gauge-track"><div class="gauge-fill" style="width:75%"></div></div>
+          <div class="gauge-label"><span>C++ (Embedded/Arduino)</span><span class="lvl">working knowledge</span></div>
+          <div class="gauge-track"><div class="gauge-fill" style="width:50%"></div></div>
         </div>
         <div class="gauge">
-          <div class="gauge-label"><span>HTML / CSS / JavaScript</span><span class="lvl">proficient</span></div>
+          <div class="gauge-label"><span>HTML / CSS / JavaScript</span><span class="lvl">working knowledge</span></div>
+          <div class="gauge-track"><div class="gauge-fill" style="width:50%"></div></div>
+        </div>
+        <div class="gauge">
+          <div class="gauge-label"><span>Python</span><span class="lvl">working knowledge</span></div>
+          <div class="gauge-track"><div class="gauge-fill" style="width:50%"></div></div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>Frameworks &amp; Libraries</h3>
+        <div class="gauge">
+          <div class="gauge-label"><span>.NET MAUI</span><span class="lvl">working knowledge</span></div>
           <div class="gauge-track"><div class="gauge-fill" style="width:78%"></div></div>
         </div>
       </div>
       <div class="skill-group">
-        <h3>เฟรมเวิร์ค ไลบรารี &amp; ฐานข้อมูล</h3>
-        <div class="gauge">
-          <div class="gauge-label"><span>.NET MAUI</span><span class="lvl">proficient</span></div>
-          <div class="gauge-track"><div class="gauge-fill" style="width:78%"></div></div>
-        </div>
+        <h3>Database</h3>
         <div class="gauge">
           <div class="gauge-label"><span>SQLite</span><span class="lvl">working knowledge</span></div>
-          <div class="gauge-track"><div class="gauge-fill" style="width:65%"></div></div>
-        </div>
-        <div class="gauge">
-          <div class="gauge-label"><span>REST APIs (Groq / LLM APIs)</span><span class="lvl">working knowledge</span></div>
-          <div class="gauge-track"><div class="gauge-fill" style="width:60%"></div></div>
+          <div class="gauge-track"><div class="gauge-fill" style="width:50%"></div></div>
         </div>
       </div>
     </div>
 
-    <div class="sub-h">เครื่องมือ เทคโนโลยี และโปรแกรมที่ใช้</div>
+    <div class="sub-h">Tools &amp; Technologies</div>
     <div class="taglist">
       <span class="chip">Visual Studio / VS Code</span>
       <span class="chip">GitHub</span>
       <span class="chip">Arduino IDE</span>
+      <span class="chip">Google Apps Script</span>
       <span class="chip">Figma</span>
       <span class="chip">Excel</span>
     </div>
@@ -391,32 +532,30 @@
 <!-- ===== 4. ACTIVITIES AND CONTRIBUTIONS ===== -->
 <section id="activities">
   <div class="wrap">
-    <div class="eyebrow">Involvement</div>
-    <h2>กิจกรรมและการมีส่วนร่วม</h2>
+    <h2 style="font-size: clamp(2rem, 4vw, 2.6rem);">Activities</h2>
     <div class="timeline">
       <div class="t-item">
-        <div class="t-date">[เดือน/ปี]</div>
+        <div class="t-date">10 ก.พ. 2569</div>
         <div>
-          <div class="t-title">[ชื่อการแข่งขัน Hackathon หรือโปรแกรมมิ่ง]</div>
-          <div class="t-org">[ชื่อผู้จัด] · ผลงาน/รางวัลที่ได้รับ: [ระบุ]</div>
-          <div class="t-desc">[อธิบายสั้น ๆ ว่าทำอะไร บทบาทของคุณในทีม]</div>
-          <div class="t-shot">[แนบรูปภาพกิจกรรม/ใบประกาศตรงนี้]</div>
+          <div class="t-title">Bu Cyber Fortress Challenge &amp; Career Expo</div>
+          <div class="t-org">กิจกรรมด้าน Cybersecurity</div>
+          <div class="t-desc">ได้รับความรู้ทั้งด้าน Cybersecurity รวมถึงการปฏิบัติจริง ได้เรียนรู้แนวโน้มของอาชีพในสาย Cybersecurity ทักษะที่จำเป็นสำหรับการทำงานในอนาคต ความสำคัญของโครงสร้างพื้นฐานด้านความมั่นคงปลอดภัยไซเบอร์ และการประยุกต์ใช้ปัญญาประดิษฐ์ในการป้องกันและตรวจจับภัยคุกคาม</div>
+          <div class="t-shot-row">
+            <div class="t-shot">[รูปที่ 1: Bu Cyber Fortress Challenge &amp; Career Expo]</div>
+            <div class="t-shot">[รูปที่ 2: Bu Cyber Fortress Challenge &amp; Career Expo]</div>
+          </div>
         </div>
       </div>
       <div class="t-item">
-        <div class="t-date">[เดือน/ปี]</div>
+        <div class="t-date">21 พ.ค. 2569</div>
         <div>
-          <div class="t-title">[ชื่อชมรม/กิจกรรมด้านเทคโนโลยี]</div>
-          <div class="t-org">บทบาท: [เช่น สมาชิก / หัวหน้าโครงการ]</div>
-          <div class="t-desc">[อธิบายบทบาทและกิจกรรมที่มีส่วนร่วม]</div>
-        </div>
-      </div>
-      <div class="t-item">
-        <div class="t-date">[เดือน/ปี]</div>
-        <div>
-          <div class="t-title">[ชื่องานสัมมนา/การประชุมด้านเทคโนโลยีที่เข้าร่วม]</div>
-          <div class="t-org">[ผู้จัดงาน]</div>
-          <div class="t-desc">[สิ่งที่ได้เรียนรู้จากงานนี้]</div>
+          <div class="t-title">IT Empowering Day in the Era of AI</div>
+          <div class="t-org">ตัวแทนจัดบูทเผยแพร่ความรู้เกี่ยวกับวิชาโปรเจกต์</div>
+          <div class="t-desc">เป็นตัวแทนไปจัดบูทเผยแพร่ความรู้เกี่ยวกับวิชาโปรเจกต์ และเข้าร่วมงานเพื่อเรียนรู้การประยุกต์ใช้ปัญญาประดิษฐ์ในการทำงานจริง ทั้งด้านการพัฒนาซอฟต์แวร์ การแก้ปัญหาทางธุรกิจ และแนวโน้มของอุตสาหกรรมเทคโนโลยีในอนาคต พร้อมพบปะบริษัทชั้นนำในกิจกรรม Mini Job Fair เพื่อสร้างเครือข่ายและเตรียมความพร้อมสำหรับการประกอบอาชีพด้านเทคโนโลยี</div>
+          <div class="t-shot-row">
+            <div class="t-shot">[รูปที่ 1: IT Empowering Day in the Era of AI]</div>
+            <div class="t-shot">[รูปที่ 2: IT Empowering Day in the Era of AI]</div>
+          </div>
         </div>
       </div>
     </div>
@@ -426,74 +565,26 @@
 <!-- ===== 5. CERTIFICATIONS ===== -->
 <section id="certifications">
   <div class="wrap">
-    <div class="eyebrow">Credentials</div>
-    <h2>ใบรับรอง</h2>
+    <h2 style="font-size: clamp(2rem, 4vw, 2.6rem);">Certifications</h2>
     <div class="cert-grid">
-      <div class="cert-card">
-        <h3>[ชื่อใบรับรองด้านไอที เช่น AWS Certified AI Practitioner]</h3>
-        <div class="issuer">ออกโดย [หน่วยงาน]</div>
-        <div class="date">[เดือน/ปีที่ได้รับ]</div>
-      </div>
-      <div class="cert-card">
-        <h3>[ชื่อการอบรมที่สำคัญ]</h3>
-        <div class="issuer">ออกโดย [หน่วยงาน]</div>
-        <div class="date">[เดือน/ปีที่ได้รับ]</div>
+      <div class="cert-empty">
+        กำลังอยู่ระหว่างการเก็บสะสมใบรับรอง — เพิ่มเติมได้ที่นี่เมื่อได้รับ Certificate ใหม่ ๆ
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== 6. WORK EXPERIENCE (ถ้ามี) ===== -->
-<section id="experience">
-  <div class="wrap">
-    <div class="eyebrow">Experience</div>
-    <h2>ประสบการณ์การทำงาน</h2>
-    <div class="timeline">
-      <div class="t-item">
-        <div class="t-date">[เดือน/ปี — ปัจจุบัน]</div>
-        <div>
-          <div class="t-title">[ตำแหน่งงาน]</div>
-          <div class="t-org">[ชื่อบริษัท/หน่วยงาน]</div>
-          <div class="t-desc">[หน้าที่ความรับผิดชอบและผลงานสำคัญ]</div>
-        </div>
-      </div>
-    </div>
-    <p style="color:var(--text-dim); font-size:0.85rem; margin-top:10px;">หมายเหตุ: หากยังไม่มีประสบการณ์การทำงาน สามารถลบ section นี้ออกได้</p>
-  </div>
-</section>
-
-<!-- ===== 7. CONTACT ===== -->
+<!-- ===== 6. CONTACT ===== -->
 <section id="contact">
   <div class="wrap">
-    <div class="eyebrow">Get in touch</div>
-    <h2>ติดต่อ</h2>
+    <h2 style="font-size: clamp(2rem, 4vw, 2.6rem);">Contact</h2>
     <div class="contact-box">
-      <p>สนใจร่วมงานหรือพูดคุยเกี่ยวกับโปรเจกต์ ติดต่อได้ตามช่องทางด้านล่างนี้</p>
+      <p>Interested in working together or discussing a project? Reach out through the channels below.</p>
       <div class="contact-links">
-        <a class="btn btn-primary" href="mailto:youremail@gmail.com">อีเมล: youremail@gmail.com</a>
+        <a class="btn btn-primary" href="mailto:Apornphat.panc@bumail.net">Email: Apornphat.panc@bumail.net</a>
+        <a class="btn btn-outline" href="tel:091898969">Phone: 091-898-969</a>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== 8. SOCIAL MEDIA LINKS ===== -->
-<section id="social">
-  <div class="wrap">
-    <div class="eyebrow">Find me online</div>
-    <h2>ลิงก์โซเชียลมีเดีย</h2>
-    <div class="social-grid">
-      <a class="social-card" href="https://github.com/ApornphatPanchang" target="_blank" rel="noopener">
-        <div class="plat">GitHub</div>
-        <div class="handle">@ApornphatPanchang</div>
-      </a>
-      <a class="social-card" href="#" target="_blank" rel="noopener">
-        <div class="plat">LinkedIn</div>
-        <div class="handle">[ใส่ชื่อ/ลิงก์ LinkedIn]</div>
-      </a>
-      <a class="social-card" href="#" target="_blank" rel="noopener">
-        <div class="plat">[อื่น ๆ เช่น Instagram]</div>
-        <div class="handle">[ใส่ handle]</div>
-      </a>
+      <div class="contact-meta">Khlong Luang, Pathum Thani, Thailand</div>
     </div>
   </div>
 </section>
@@ -507,6 +598,49 @@
   const links = document.getElementById('navlinks');
   toggle.addEventListener('click', () => links.classList.toggle('open'));
   links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  // ---- Screenshot carousels ----
+  document.querySelectorAll('[data-carousel]').forEach(carousel => {
+    const track = carousel.querySelector('.shot-track');
+    const slides = Array.from(track.children);
+    const dotsWrap = carousel.querySelector('.shot-dots');
+    const prevBtn = carousel.querySelector('.shot-prev');
+    const nextBtn = carousel.querySelector('.shot-next');
+    let index = 0;
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'shot-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'ภาพที่ ' + (i + 1));
+      dot.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(dot);
+    });
+    const dots = Array.from(dotsWrap.children);
+
+    function goTo(i){
+      index = (i + slides.length) % slides.length;
+      track.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach((d, di) => d.classList.toggle('active', di === index));
+    }
+
+    prevBtn.addEventListener('click', () => goTo(index - 1));
+    nextBtn.addEventListener('click', () => goTo(index + 1));
+
+    // swipe support
+    let startX = 0;
+    track.addEventListener('touchstart', e => startX = e.touches[0].clientX, {passive:true});
+    track.addEventListener('touchend', e => {
+      const diff = e.changedTouches[0].clientX - startX;
+      if (diff > 40) goTo(index - 1);
+      else if (diff < -40) goTo(index + 1);
+    }, {passive:true});
+
+    if (slides.length <= 1) {
+      prevBtn.style.display = 'none';
+      nextBtn.style.display = 'none';
+      dotsWrap.style.display = 'none';
+    }
+  });
 </script>
 
 </body>
