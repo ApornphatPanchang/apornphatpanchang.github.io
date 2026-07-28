@@ -115,7 +115,8 @@
   }
   .id-photo{ width: 190px; height: 190px; border-radius: 50%; overflow: hidden; background: var(--surface-2); position: relative; margin: 30px auto 6px; }
   .id-photo img{
-    width: 100%; height: 100%; object-fit: cover; object-position: center 0%;
+    width: 100%; height: 100%; object-fit: cover; object-position: center 65%;
+    transform: scale(1.9); transform-origin: center 65%;
     display: block;
   }
   .id-facts{ padding: 20px 22px 22px; font-family: 'JetBrains Mono', monospace; }
@@ -210,14 +211,14 @@
   .t-org{ color: var(--text-dim); font-size: 0.86rem; margin-bottom: 10px; }
   .t-desc{ color: var(--text-dim); font-size: 0.92rem; }
   .t-shot{
-    margin-top: 12px; width: 100%; max-width: 320px; height: 110px; border-radius: 6px;
+    margin-top: 12px; width: 100%; max-width: 480px; height: 260px; border-radius: 6px;
     background: var(--surface-2); border: 1px solid var(--line); overflow: hidden;
     display: flex; align-items: center; justify-content: center;
     font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--text-dim); text-align: center; padding: 0;
   }
   .t-shot img{ width: 100%; height: 100%; object-fit: cover; display: block; }
   .t-shot-row{ display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
-  .t-shot-row .t-shot{ margin-top: 0; flex: 1 1 220px; max-width: 320px; }
+  .t-shot-row .t-shot{ margin-top: 0; flex: 1 1 280px; max-width: 480px; }
 
   .cert-grid{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
   .cert-card{
@@ -322,7 +323,6 @@
       <li><a href="#projects">Projects</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#activities">Activities</a></li>
-      <li><a href="#certifications">Certifications</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <button class="navtoggle" id="navtoggle" aria-label="เปิดเมนู">☰</button>
@@ -346,10 +346,9 @@
         <div class="id-row"><span class="k">name</span><span class="v">Apornphat Panchang</span></div>
         <div class="id-row"><span class="k">nickname</span><span class="v">Waii</span></div>
         <div class="id-row"><span class="k">age</span><span class="v">21</span></div>
-        <div class="id-row"><span class="k">date_of_birth</span><span class="v">10 Dec 2004</span></div>
+        <div class="id-row"><span class="k">date_of_birth</span><span class="v">10 December 2004</span></div>
         <div class="id-row"><span class="k">gender</span><span class="v">Female</span></div>
         <div class="id-row"><span class="k">nationality</span><span class="v">Thai</span></div>
-        <div class="id-row"><span class="k">interested_occupation</span><span class="v">Data Analyst</span></div>
       </div>
     </div>
   </div>
@@ -372,14 +371,15 @@
     <div class="fact-grid">
       <div class="fact-card"><span class="k">2023 – Present</span><span class="v">Bangkok University<br>School of Information Technology and Innovation<br>Major: Computer Science</span></div>
       <div class="fact-card"><span class="k">2018 – 2023</span><span class="v">Sarasas Witaed Klongluang School</span></div>
-      <div class="fact-card"><span class="k">interests</span><span class="v">Mobile Development, Data Analytics</span></div>
-      <div class="fact-card"><span class="k">tools</span><span class="v">GitHub, Visual Studio, VS Code, Arduino IDE, Figma</span></div>
+      <div class="fact-card"><span class="k">interests</span><span class="v">Data Analytics</span></div>
+      <div class="fact-card"><span class="k">tools</span><span class="v">GitHub, Visual Studio, VS Code, Arduino IDE, Figma, Power BI</span></div>
     </div>
 
     <div class="sub-h">Skills &amp; Expertise</div>
     <div class="taglist">
       <span class="chip">Mobile App Development</span>
       <span class="chip">IoT Systems</span>
+      <span class="chip">Data Analysis</span>
     </div>
   </div>
 </section>
@@ -392,7 +392,7 @@
 
       <div class="card wide">
         <div class="card-tag">Mobile Application · .NET MAUI</div>
-        <h3>Flashcard App — เรียนภาษาไทย-อังกฤษ</h3>
+        <h3>Flashcard App</h3>
 
         <div class="shot-carousel" data-carousel>
           <div class="shot-track">
@@ -526,6 +526,7 @@
       <span class="chip">Google Apps Script</span>
       <span class="chip">Figma</span>
       <span class="chip">Excel</span>
+      <span class="chip">Power BI</span>
     </div>
   </div>
 </section>
@@ -563,18 +564,6 @@
   </div>
 </section>
 
-<!-- ===== 5. CERTIFICATIONS ===== -->
-<section id="certifications">
-  <div class="wrap">
-    <h2 style="font-size: clamp(2rem, 4vw, 2.6rem);">Certifications</h2>
-    <div class="cert-grid">
-      <div class="cert-empty">
-        กำลังอยู่ระหว่างการเก็บสะสมใบรับรอง — เพิ่มเติมได้ที่นี่เมื่อได้รับ Certificate ใหม่ ๆ
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ===== 6. CONTACT ===== -->
 <section id="contact">
   <div class="wrap">
@@ -585,7 +574,6 @@
         <a class="btn btn-primary" href="mailto:Apornphat.panc@bumail.net">Email: Apornphat.panc@bumail.net</a>
         <a class="btn btn-outline" href="tel:091898969">Phone: 091-898-969</a>
       </div>
-      <div class="contact-meta">Khlong Luang, Pathum Thani, Thailand</div>
     </div>
   </div>
 </section>
