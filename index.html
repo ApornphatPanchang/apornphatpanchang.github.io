@@ -112,6 +112,7 @@
   .id-card{
     background: var(--surface); border: 1px solid var(--line);
     border-radius: var(--radius); overflow: hidden;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.08);
   }
   .id-photo{ width: 190px; height: 190px; border-radius: 50%; overflow: hidden; background: var(--surface-2); position: relative; margin: 30px auto 6px; }
   .id-photo img{
@@ -119,7 +120,7 @@
     transform: scale(1.9); transform-origin: center 65%;
     display: block;
   }
-  .id-facts{ padding: 20px 22px 22px; font-family: 'JetBrains Mono', monospace; }
+  .id-facts{ padding: 20px 22px 22px; font-family: 'Inter', sans-serif; }
   .id-row{ display: flex; justify-content: space-between; align-items: baseline; gap: 14px; padding: 8px 0; border-bottom: 1px dashed var(--line); font-size: 0.8rem; }
   .id-row:last-of-type{ border-bottom: none; }
   .id-row .k{ color: var(--text-dim); white-space: nowrap; }
@@ -164,9 +165,10 @@
     background: var(--surface); border: 1px solid var(--line);
     border-radius: var(--radius); padding: 26px;
     display: flex; flex-direction: column;
-    transition: border-color 0.2s, transform 0.2s;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
   }
-  .card:hover{ border-color: var(--black); transform: translateY(-4px); }
+  .card:hover{ border-color: var(--black); transform: translateY(-4px); box-shadow: 0 16px 36px rgba(0,0,0,0.1); }
   .card-tag{ font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--text-dim); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 10px; }
   .card h3{ font-size: 1.15rem; margin-bottom: 10px; }
   .card p{ color: var(--text-dim); font-size: 0.92rem; margin-bottom: 14px; }
@@ -234,7 +236,7 @@
   }
 
   /* Contact */
-  .contact-box{ background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 44px; text-align: center; }
+  .contact-box{ background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 44px; text-align: center; box-shadow: 0 12px 32px rgba(0,0,0,0.07); }
   .contact-box p{ color: var(--text-dim); margin-bottom: 26px; max-width: 46ch; margin-left:auto; margin-right:auto; }
   .contact-links{ display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
   .contact-meta{ margin-top: 26px; padding-top: 26px; border-top: 1px dashed var(--line); color: var(--text-dim); font-size: 0.86rem; }
@@ -296,6 +298,55 @@
   }
   .shot-dot.active{ background: var(--black); }
 
+  /* ---------- SCROLL REVEAL ---------- */
+  [data-reveal]{
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(.16,.84,.44,1), transform 0.8s cubic-bezier(.16,.84,.44,1);
+    will-change: opacity, transform;
+  }
+  [data-reveal].is-visible{ opacity: 1; transform: translateY(0); }
+
+  [data-reveal="left"]{ transform: translateX(-44px); }
+  [data-reveal="left"].is-visible{ transform: translateX(0); }
+
+  [data-reveal="right"]{ transform: translateX(44px); }
+  [data-reveal="right"].is-visible{ transform: translateX(0); }
+
+  [data-reveal="scale"]{ transform: scale(0.94); }
+  [data-reveal="scale"].is-visible{ transform: scale(1); }
+
+  [data-reveal-group] > *{
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.6s cubic-bezier(.16,.84,.44,1), transform 0.6s cubic-bezier(.16,.84,.44,1);
+  }
+  [data-reveal-group].is-visible > *{ opacity: 1; transform: translateY(0); }
+  [data-reveal-group].is-visible > *:nth-child(1){ transition-delay: 0.04s; }
+  [data-reveal-group].is-visible > *:nth-child(2){ transition-delay: 0.11s; }
+  [data-reveal-group].is-visible > *:nth-child(3){ transition-delay: 0.18s; }
+  [data-reveal-group].is-visible > *:nth-child(4){ transition-delay: 0.25s; }
+  [data-reveal-group].is-visible > *:nth-child(5){ transition-delay: 0.32s; }
+  [data-reveal-group].is-visible > *:nth-child(6){ transition-delay: 0.39s; }
+  [data-reveal-group].is-visible > *:nth-child(7){ transition-delay: 0.46s; }
+  [data-reveal-group].is-visible > *:nth-child(8){ transition-delay: 0.53s; }
+
+  .gauge .gauge-fill{ width: 0 !important; transition: width 1.2s cubic-bezier(.16,.84,.44,1) 0.15s; }
+  .gauge.is-visible .gauge-fill{ width: var(--w) !important; }
+
+  /* Hero entrance (runs on load, not scroll) */
+  .hero-anim{ opacity: 0; transform: translateY(20px); animation: heroIn 0.9s cubic-bezier(.16,.84,.44,1) forwards; }
+  .hero-anim.d1{ animation-delay: 0.05s; }
+  .hero-anim.d2{ animation-delay: 0.15s; }
+  .hero-anim.d3{ animation-delay: 0.25s; }
+  .hero-anim.d4{ animation-delay: 0.35s; }
+  @keyframes heroIn{ to{ opacity: 1; transform: translateY(0); } }
+
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal], [data-reveal-group] > *, .hero-anim{ opacity: 1 !important; transform: none !important; animation: none !important; }
+    .gauge .gauge-fill{ width: var(--w) !important; }
+  }
+
   /* ---------- RESPONSIVE ---------- */
   @media (max-width: 800px){
     .navlinks{ position: absolute; top: 64px; left: 0; right: 0; background: var(--bg); border-bottom: 1px solid var(--line); flex-direction: column; padding: 18px 24px; display: none; gap: 16px; }
@@ -336,22 +387,22 @@
 <header class="hero" style="border-top:none; padding-top:64px;">
   <div class="wrap hero-grid">
     <div>
-      <div class="eyebrow">Portfolio</div>
-      <h1>Apornphat Panchang</h1>
-      <p style="font-family:'JetBrains Mono', monospace; font-size:0.95rem; color: var(--text-dim); margin: -8px 0 18px;">Computer Science Student</p>
-      <p class="lead">Looking for job opportunities. Always open to learning new things — technology, skills, or work experience I haven't tried before.</p>
+      <div class="eyebrow hero-anim">Portfolio</div>
+      <h1 class="hero-anim d1">Apornphat Panchang</h1>
+      <p class="hero-anim d2" style="font-family:'JetBrains Mono', monospace; font-size:0.95rem; color: var(--text-dim); margin: -8px 0 18px;">Computer Science Student</p>
+      <p class="lead hero-anim d3">Looking for job opportunities. Always open to learning new things — technology, skills, or work experience I haven't tried before.</p>
     </div>
-    <div class="id-card">
+    <div class="id-card hero-anim d4">
       <div class="id-photo">
         <img src="Profile.jpg" alt="Apornphat Panchang (Waii)">
       </div>
       <div class="id-facts">
-        <div class="id-row"><span class="k">name</span><span class="v">Apornphat Panchang</span></div>
-        <div class="id-row"><span class="k">nickname</span><span class="v">Waii</span></div>
-        <div class="id-row"><span class="k">age</span><span class="v">21</span></div>
-        <div class="id-row"><span class="k">date_of_birth</span><span class="v">10 December 2004</span></div>
-        <div class="id-row"><span class="k">gender</span><span class="v">Female</span></div>
-        <div class="id-row"><span class="k">nationality</span><span class="v">Thai</span></div>
+        <div class="id-row"><span class="k">Name</span><span class="v">Apornphat Panchang</span></div>
+        <div class="id-row"><span class="k">Nickname</span><span class="v">Waii</span></div>
+        <div class="id-row"><span class="k">Age</span><span class="v">21</span></div>
+        <div class="id-row"><span class="k">Date of Birth</span><span class="v">10 December 2004</span></div>
+        <div class="id-row"><span class="k">Gender</span><span class="v">Female</span></div>
+        <div class="id-row"><span class="k">Nationality</span><span class="v">Thai</span></div>
       </div>
     </div>
   </div>
@@ -360,9 +411,9 @@
 <!-- ===== 1. ABOUT ME ===== -->
 <section id="about">
   <div class="wrap">
-    <h2 style="font-size: clamp(2rem, 4vw, 2.6rem);">About Me</h2>
+    <h2 data-reveal style="font-size: clamp(2rem, 4vw, 2.6rem);">About Me</h2>
 
-    <div class="about-intro" style="max-width: 70ch; margin-bottom: 12px;">
+    <div class="about-intro" data-reveal style="max-width: 70ch; margin-bottom: 12px;">
       <p>
         Currently studying Computer Science at the School of Information Technology and Innovation, Bangkok University.
         Hands-on experience with IoT and mobile app development through class projects, including an IoT-based focus
@@ -370,8 +421,8 @@
       </p>
     </div>
 
-    <div class="sub-h">Education</div>
-    <div class="fact-grid">
+    <div class="sub-h" data-reveal>Education</div>
+    <div class="fact-grid" data-reveal-group>
       <div class="fact-card"><span class="k">2023 – Present</span><span class="v">Bangkok University<br>School of Information Technology and Innovation<br>Major: Computer Science</span></div>
       <div class="fact-card"><span class="k">2018 – 2023</span><span class="v">Sarasas Witaed Klongluang School</span></div>
     </div>
@@ -381,10 +432,10 @@
 <!-- ===== 2. PROJECTS ===== -->
 <section id="projects">
   <div class="wrap">
-    <h2 style="font-size: clamp(2rem, 4vw, 2.6rem);">Projects</h2>
+    <h2 data-reveal style="font-size: clamp(2rem, 4vw, 2.6rem);">Projects</h2>
     <div class="projects-grid">
 
-      <div class="card wide">
+      <div class="card wide" data-reveal="left">
         <div class="card-tag">Mobile Application · C# · .NET MAUI · SQLite · Visual Studio</div>
         <h3>Flashcard App</h3>
 
@@ -430,7 +481,7 @@
         </div>
       </div>
 
-      <div class="card wide">
+      <div class="card wide" data-reveal="right">
         <div class="card-tag">AI Concept Design · OCR · LLM</div>
         <h3>AI Health Screener &amp; Lab Report Explainer</h3>
 
@@ -454,18 +505,17 @@
           <iframe width="100%" height="100%" src="https://www.youtube.com/embed/pRgleDbziqM" title="AI Health Screener & Lab Report Explainer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="display:block;"></iframe>
         </div>
 
-        <p>ระบบวิเคราะห์และอธิบายผลตรวจสุขภาพด้วย AI ที่ออกแบบมาเพื่อแก้ปัญหาผู้ใช้ทั่วไปที่ไม่สามารถอ่านและเข้าใจผลตรวจเลือดของตัวเองได้ เนื่องจากมีศัพท์ทางการแพทย์ที่ซับซ้อน (เช่น LDL, HDL) และไม่ทราบค่ามาตรฐานของแต่ละตัว ทำให้ต้องเสียเวลาค้นหาข้อมูลเองและอาจเข้าใจผิดพลาดได้ ระบบนี้เปลี่ยนขั้นตอนการตีความผลตรวจจากที่ต้องทำเองทั้งหมด ให้กลายเป็นระบบอัตโนมัติที่เข้าใจง่ายภายในไม่กี่วินาที โดยใช้ Gemini API อ่านค่าจากภาพผลตรวจโดยตรงแบบ Multimodal วิเคราะห์ค่าทางการแพทย์ด้วยกฎมาตรฐาน (Rule-based) แล้วให้ AI แปลผลเป็นภาษาที่คนทั่วไปเข้าใจได้ พร้อมคำแนะนำเบื้องต้น ตัวเว็บแอปพัฒนาและรันผ่าน Flask บน Google Colab แล้วเปิดให้เข้าถึงได้ผ่าน ngrok ช่วยลดเวลาและความซับซ้อนในการตีความข้อมูลด้วยตนเอง</p>
+        <p>ระบบวิเคราะห์และอธิบายผลตรวจสุขภาพด้วย AI ที่ออกแบบมาเพื่อแก้ปัญหาผู้ใช้ทั่วไปที่ไม่สามารถอ่านและเข้าใจผลตรวจเลือดของตัวเองได้ เนื่องจากมีศัพท์ทางการแพทย์ที่ซับซ้อน (เช่น LDL, HDL) และไม่ทราบค่ามาตรฐานของแต่ละตัว ทำให้ต้องเสียเวลาค้นหาข้อมูลเองและอาจเข้าใจผิดพลาดได้ ระบบนี้เปลี่ยนขั้นตอนการตีความผลตรวจจากที่ต้องทำเองทั้งหมด ให้กลายเป็นระบบอัตโนมัติที่เข้าใจง่ายภายในไม่กี่วินาที โดยใช้ Gemini API อ่านค่าจากภาพผลตรวจโดยตรงแบบ Multimodal วิเคราะห์ค่าทางการแพทย์ด้วยกฎมาตรฐาน (Rule-based) แล้วให้ AI แปลผลเป็นภาษาที่คนทั่วไปเข้าใจได้ พร้อมคำแนะนำเบื้องต้น ตัวเว็บแอปพัฒนาและรันบน Google Colab แล้วเปิดให้เข้าถึงได้ผ่าน ngrok ช่วยลดเวลาและความซับซ้อนในการตีความข้อมูลด้วยตนเอง</p>
         <ul class="feat-list">
           <li>อัปโหลดภาพผลตรวจสุขภาพ แล้วให้ Gemini API อ่านและดึงข้อความ/ตัวเลขจากใบตรวจสุขภาพโดยตรงแบบ Multimodal โดยไม่ต้องผ่าน OCR แยกขั้นตอน</li>
           <li>วิเคราะห์ค่าทางการแพทย์ (Glucose, Cholesterol, LDL, HDL) ด้วยกฎมาตรฐาน (Rule-based System) เพื่อเพิ่มความแม่นยำและความน่าเชื่อถือของผลวิเคราะห์</li>
           <li>Gemini API แปลผลตรวจเป็นภาษาที่เข้าใจง่าย พร้อมคำแนะนำเบื้องต้น โดยดึงค่าตรวจและอธิบายผลเป็นภาษาที่คนทั่วไปเข้าใจได้</li>
           <li>ออกแบบ Prompt Engineering เพื่อให้ AI อธิบายผลตรวจด้วยภาษาที่เข้าใจง่าย หลีกเลี่ยงศัพท์ทางการแพทย์ที่ซับซ้อน พร้อมสรุปความเสี่ยงสั้นๆ และคำแนะนำการดูแลเบื้องต้น</li>
-          <li>พัฒนาเป็นเว็บแอปด้วย Flask รันบน Google Colab และเปิดให้เข้าถึงได้ผ่าน ngrok เพื่อทดสอบระบบแบบใช้งานจริง</li>
+          <li>พัฒนาเป็นเว็บแอปรันบน Google Colab และเปิดให้เข้าถึงได้ผ่าน ngrok เพื่อทดสอบระบบแบบใช้งานจริง</li>
           <li>จำกัดขอบเขตค่ามาตรฐานสุขภาพไว้ที่ 4 ค่าหลัก ได้แก่ Glucose, Cholesterol, LDL และ HDL เพื่อให้ระบบทำงานได้จริงและแม่นยำภายในเวลาที่กำหนด</li>
         </ul>
         <div class="card-stack">
           <span class="chip">Gemini API</span>
-          <span class="chip">Flask</span>
           <span class="chip">Google Colab</span>
           <span class="chip">ngrok</span>
           <span class="chip">Rule-based System</span>
@@ -476,7 +526,7 @@
         </div>
       </div>
 
-      <div class="card">
+      <div class="card wide" data-reveal="left">
         <div class="card-tag">IoT · Arduino IDE · Sensors</div>
         <h3>ระบบตรวจจับสมาธิของผู้ใช้งาน<br>(Focus Monitoring System)</h3>
 
@@ -500,7 +550,6 @@
           <span class="chip">C++</span>
           <span class="chip">ESP32</span>
           <span class="chip">Google Apps Script</span>
-          <span class="chip">Looker Studio</span>
           <span class="chip">Groq AI API</span>
         </div>
         <div class="card-links">
@@ -508,7 +557,7 @@
         </div>
       </div>
 
-      <div class="card">
+      <div class="card wide" data-reveal="right">
         <div class="card-tag">IoT · Arduino IDE · Sensors</div>
         <h3>ระบบแจ้งเตือนการลืมปิดประตูตู้เย็น<br>(Smart Refrigerator Door Alert)</h3>
 
@@ -543,41 +592,57 @@
 <!-- ===== 3. TECHNICAL SKILLS ===== -->
 <section id="skills">
   <div class="wrap">
-    <h2 style="font-size: clamp(2rem, 4vw, 2.6rem);">Technical Skills</h2>
+    <h2 data-reveal style="font-size: clamp(2rem, 4vw, 2.6rem);">Technical Skills</h2>
     <div class="skills-grid">
       <div class="skill-group">
         <h3>Programming Languages</h3>
-        <div class="gauge">
-          <div class="gauge-label"><span>C#</span></div>
-          <div class="gauge-track"><div class="gauge-fill" style="width:30%"></div></div>
+        <div class="gauge" data-reveal>
+          <div class="gauge-label"><span>C#</span><span class="lvl">20%</span></div>
+          <div class="gauge-track"><div class="gauge-fill" style="--w:20%"></div></div>
         </div>
       </div>
       <div class="skill-group">
         <h3>Frameworks</h3>
-        <div class="gauge">
-          <div class="gauge-label"><span>.NET MAUI</span></div>
-          <div class="gauge-track"><div class="gauge-fill" style="width:30%"></div></div>
+        <div class="gauge" data-reveal>
+          <div class="gauge-label"><span>.NET MAUI</span><span class="lvl">30%</span></div>
+          <div class="gauge-track"><div class="gauge-fill" style="--w:30%"></div></div>
         </div>
       </div>
       <div class="skill-group">
         <h3>Database</h3>
-        <div class="gauge">
-          <div class="gauge-label"><span>SQLite</span></div>
-          <div class="gauge-track"><div class="gauge-fill" style="width:20%"></div></div>
+        <div class="gauge" data-reveal>
+          <div class="gauge-label"><span>SQLite</span><span class="lvl">20%</span></div>
+          <div class="gauge-track"><div class="gauge-fill" style="--w:20%"></div></div>
         </div>
       </div>
     </div>
 
-    <div class="sub-h">Tools</div>
-    <div class="taglist">
-      <span class="chip">GitHub</span>
-      <span class="chip">Visual Studio</span>
-      <span class="chip">Arduino IDE</span>
-      <span class="chip">Figma</span>
+    <div class="sub-h" data-reveal>Tools</div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="gauge" data-reveal>
+          <div class="gauge-label"><span>GitHub</span><span class="lvl">20%</span></div>
+          <div class="gauge-track"><div class="gauge-fill" style="--w:20%"></div></div>
+        </div>
+        <div class="gauge" data-reveal>
+          <div class="gauge-label"><span>Visual Studio</span><span class="lvl">40%</span></div>
+          <div class="gauge-track"><div class="gauge-fill" style="--w:40%"></div></div>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="gauge" data-reveal>
+          <div class="gauge-label"><span>Arduino IDE</span><span class="lvl">30%</span></div>
+          <div class="gauge-track"><div class="gauge-fill" style="--w:30%"></div></div>
+        </div>
+        <div class="gauge" data-reveal>
+          <div class="gauge-label"><span>Figma</span><span class="lvl">60%</span></div>
+          <div class="gauge-track"><div class="gauge-fill" style="--w:60%"></div></div>
+        </div>
+      </div>
     </div>
 
-    <div class="sub-h">Interests</div>
-    <div class="taglist">
+    <div class="sub-h" data-reveal>Interests</div>
+    <div class="taglist" data-reveal-group>
       <span class="chip">Data Analytics</span>
     </div>
   </div>
@@ -586,9 +651,9 @@
 <!-- ===== 4. ACTIVITIES AND CONTRIBUTIONS ===== -->
 <section id="activities">
   <div class="wrap">
-    <h2 style="font-size: clamp(2rem, 4vw, 2.6rem);">Activities</h2>
+    <h2 data-reveal style="font-size: clamp(2rem, 4vw, 2.6rem);">Activities</h2>
     <div class="timeline">
-      <div class="t-item">
+      <div class="t-item" data-reveal="left">
         <div class="t-date">10 ก.พ. 2569</div>
         <div>
           <div class="t-title">Bu Cyber Fortress Challenge &amp; Career Expo</div>
@@ -600,7 +665,7 @@
           </div>
         </div>
       </div>
-      <div class="t-item">
+      <div class="t-item" data-reveal="right">
         <div class="t-date">21 พ.ค. 2569</div>
         <div>
           <div class="t-title">IT Empowering Day in the Era of AI</div>
@@ -619,12 +684,13 @@
 <!-- ===== 6. CONTACT ===== -->
 <section id="contact">
   <div class="wrap">
-    <h2 style="font-size: clamp(2rem, 4vw, 2.6rem);">Contact</h2>
-    <div class="contact-box">
+    <h2 data-reveal style="font-size: clamp(2rem, 4vw, 2.6rem);">Contact</h2>
+    <div class="contact-box" data-reveal="scale">
       <p>Interested in working together or discussing a project? Reach out through the channels below.</p>
       <div class="contact-links">
-        <a class="btn btn-primary" href="mailto:Apornphat.panc@bumail.net">Email: Apornphat.panc@bumail.net</a>
-        <a class="btn btn-outline" href="tel:091898969">Phone: 091-898-969</a>
+        <a class="btn btn-primary" href="mailto:Apornphat.panc@bumail.net">University Email: Apornphat.panc@bumail.net</a>
+        <a class="btn btn-primary" href="mailto:Apornphat03@gmail.com">Personal Email: Apornphat03@gmail.com</a>
+        <a class="btn btn-outline" href="tel:0918989694">Phone: 091-898-9694</a>
       </div>
     </div>
   </div>
@@ -639,6 +705,25 @@
   const links = document.getElementById('navlinks');
   toggle.addEventListener('click', () => links.classList.toggle('open'));
   links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  // ---- Scroll reveal ----
+  const revealTargets = document.querySelectorAll('[data-reveal], [data-reveal-group]');
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced) {
+    revealTargets.forEach(el => el.classList.add('is-visible'));
+  } else if ('IntersectionObserver' in window) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    revealTargets.forEach(el => revealObserver.observe(el));
+  } else {
+    revealTargets.forEach(el => el.classList.add('is-visible'));
+  }
 
   // ---- Screenshot carousels ----
   document.querySelectorAll('[data-carousel]').forEach(carousel => {
