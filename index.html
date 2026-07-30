@@ -148,7 +148,7 @@
   .about-intro p{ color: var(--text-dim); margin-bottom: 16px; font-size: 1rem; }
   .about-intro p:first-of-type{ color: var(--text); font-size: 1.08rem; font-weight: 500; line-height: 1.55; }
 
-  .fact-grid{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .fact-grid{ display: grid; grid-template-columns: 1fr; gap: 16px; }
   .fact-card{
     background: var(--surface); border: 1px solid var(--line);
     border-radius: var(--radius); padding: 18px 20px;
@@ -168,14 +168,38 @@
     box-shadow: 0 8px 24px rgba(0,0,0,0.05);
     transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
   }
-  .card:hover{ border-color: var(--black); transform: translateY(-4px); box-shadow: 0 16px 36px rgba(0,0,0,0.1); }
+  .card:hover{ border-color: var(--black); background: var(--surface-2); transform: translateY(-4px); box-shadow: 0 16px 36px rgba(0,0,0,0.1); }
   .card-tag{ font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; color: var(--text-dim); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 10px; }
   .card h3{ font-size: 1.15rem; margin-bottom: 10px; }
   .card p{ color: var(--text-dim); font-size: 0.92rem; margin-bottom: 14px; }
   .card ul.feat-list{ color: var(--text-dim); font-size: 0.88rem; margin: 0 0 18px 18px; flex-grow: 1; }
   .card ul.feat-list li{ margin-bottom: 6px; }
+
+  .read-more-btn{
+    background: none; border: none; cursor: pointer;
+    color: var(--black); font-weight: 600; font-size: 0.88rem;
+    font-family: 'Inter', sans-serif; padding: 0 0 14px; text-align: left;
+    display: inline-flex; align-items: center; gap: 6px; width: fit-content;
+  }
+  .read-more-btn .arrow{ display: inline-block; transition: transform 0.25s ease; }
+  .project-details{
+    max-height: 0; overflow: hidden; opacity: 0;
+    transition: max-height 0.5s cubic-bezier(.16,.84,.44,1), opacity 0.4s ease;
+  }
+  .card.expanded .project-details{ max-height: 2000px; opacity: 1; }
+  .card.expanded .read-more-btn .arrow{ transform: rotate(180deg); }
   .card-stack{ display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
   .chip{ font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; padding: 4px 10px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 100px; color: var(--text-dim); }
+  #skills .chip{ background: var(--black); border-color: var(--black); color: #FFFFFF; }
+  .skill-box{ width: fit-content; max-width: 100%; }
+
+  .skills-flex-grid{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; align-items: stretch; }
+  .skill-box-card{
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 18px 20px;
+    display: flex; flex-direction: column; justify-content: flex-start;
+  }
+  .skill-box-card .sub-h{ margin-bottom: 12px; }
   .card-link{ color: var(--black); text-decoration: none; font-weight: 600; font-size: 0.88rem; display: inline-flex; align-items: center; gap: 6px; border-bottom: 1px solid var(--black); width: fit-content; padding-bottom: 2px; }
   .card-link:hover{ color: var(--text-dim); border-color: var(--text-dim); }
   .card-links{ display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: auto; padding-top: 4px; }
@@ -358,6 +382,7 @@
     .fact-grid{ grid-template-columns: 1fr; }
     .projects-grid{ grid-template-columns: 1fr; }
     .skills-grid{ grid-template-columns: 1fr; }
+    .skills-flex-grid{ grid-template-columns: 1fr; }
     .cert-grid{ grid-template-columns: 1fr; }
     .social-grid{ grid-template-columns: 1fr; }
     .t-item{ grid-template-columns: 1fr; gap: 6px; }
@@ -423,8 +448,11 @@
 
     <div class="sub-h" data-reveal>Education</div>
     <div class="fact-grid" data-reveal-group>
-      <div class="fact-card"><span class="k">2023 – Present</span><span class="v">Bangkok University<br>School of Information Technology and Innovation<br>Major: Computer Science</span></div>
-      <div class="fact-card"><span class="k">2018 – 2023</span><span class="v">Sarasas Witaed Klongluang School</span></div>
+      <div class="fact-card">
+        <span class="k">2023 – Present</span><span class="v">Bangkok University<br>School of Information Technology and Innovation<br>Major: Computer Science</span>
+        <div style="height:14px;"></div>
+        <span class="k">2018 – 2023</span><span class="v">Sarasas Witaed Klongluang School</span>
+      </div>
     </div>
   </div>
 </section>
@@ -460,15 +488,19 @@
         <video controls style="width:100%; aspect-ratio:16/9; border-radius:6px; margin-bottom:16px; background:#000;">
           <source src="FlashCardApp.mp4" type="video/mp4">
         </video>
-        <p>แอปพลิเคชันเรียนรู้คำศัพท์ผ่าน Flashcard ที่ผู้ใช้สามารถสร้าง แก้ไข และจัดหมวดหมู่คำศัพท์ของตัวเองได้อย่างอิสระ พร้อมระบบอ่านออกเสียงและแปลความหมายแบบเรียลไทม์ผ่าน AI ช่วยให้การท่องจำคำศัพท์และไวยากรณ์เป็นเรื่องที่เข้าถึงง่ายและสนุกขึ้น ระบบมีทั้งบัญชีผู้ใช้ส่วนตัว คลังคำศัพท์ที่ปรับแต่งได้เต็มรูปแบบ บทเรียนไวยากรณ์แบ่งตามระดับชั้นการศึกษา รวมถึงเกมทดสอบความรู้และระบบติดตามความก้าวหน้าที่ช่วยสร้างแรงจูงใจให้ผู้เรียนกลับมาฝึกฝนอย่างต่อเนื่อง</p>
-        <ul class="feat-list">
-          <li>ระบบ Login / Register สำหรับผู้ใช้งาน พร้อมจัดการบัญชีส่วนตัวของแต่ละคน</li>
-          <li>คลังคำศัพท์ (Vocabulary) ให้ผู้ใช้สร้าง แก้ไข และจัดหมวดหมู่คำศัพท์เองได้ พร้อมระบบอ่านออกเสียง (Text-to-Speech) และแปลความหมายแบบเรียลไทม์ผ่าน AI</li>
-          <li>บทเรียนไวยากรณ์ (Grammar) แบ่งเนื้อหาตามระดับชั้น ตั้งแต่ประถมศึกษาจนถึงระดับมหาวิทยาลัย เพื่อให้เหมาะกับผู้เรียนแต่ละช่วงวัย</li>
-          <li>เกมการศึกษา (Game) แบบทดสอบวัดความรู้ทั้งด้าน Vocabulary และ Grammar เพื่อทบทวนความเข้าใจแบบโต้ตอบ</li>
-          <li>สื่อเสริมการเรียนรู้ (Watch &amp; Learn) แบ่งเนื้อหาเป็นตัวอย่างหนังและเพลง เพื่อฝึกทักษะการฟังจากเจ้าของภาษาจริง</li>
-          <li>ระบบติดตามความก้าวหน้า (Points &amp; Streak) เพื่อกระตุ้นให้ผู้ใช้เรียนรู้อย่างต่อเนื่องในระยะยาว</li>
-        </ul>
+        <p>แอปพลิเคชันเรียนรู้คำศัพท์ผ่าน Flashcard ที่ผู้ใช้สร้าง แก้ไข และจัดหมวดหมู่คำศัพท์เองได้ พร้อมระบบอ่านออกเสียงและแปลความหมายแบบเรียลไทม์ผ่าน AI</p>
+        <button class="read-more-btn" onclick="toggleProjectDetails(this)">Read More <span class="arrow">↓</span></button>
+        <div class="project-details">
+          <p>แอปพลิเคชันเรียนรู้คำศัพท์ผ่าน Flashcard ที่ผู้ใช้สามารถสร้าง แก้ไข และจัดหมวดหมู่คำศัพท์ของตัวเองได้อย่างอิสระ พร้อมระบบอ่านออกเสียงและแปลความหมายแบบเรียลไทม์ผ่าน AI ช่วยให้การท่องจำคำศัพท์และไวยากรณ์เป็นเรื่องที่เข้าถึงง่ายและสนุกขึ้น ระบบมีทั้งบัญชีผู้ใช้ส่วนตัว คลังคำศัพท์ที่ปรับแต่งได้เต็มรูปแบบ บทเรียนไวยากรณ์แบ่งตามระดับชั้นการศึกษา รวมถึงเกมทดสอบความรู้และระบบติดตามความก้าวหน้าที่ช่วยสร้างแรงจูงใจให้ผู้เรียนกลับมาฝึกฝนอย่างต่อเนื่อง</p>
+          <ul class="feat-list">
+            <li>ระบบ Login / Register สำหรับผู้ใช้งาน พร้อมจัดการบัญชีส่วนตัวของแต่ละคน</li>
+            <li>คลังคำศัพท์ (Vocabulary) ให้ผู้ใช้สร้าง แก้ไข และจัดหมวดหมู่คำศัพท์เองได้ พร้อมระบบอ่านออกเสียง (Text-to-Speech) และแปลความหมายแบบเรียลไทม์ผ่าน AI</li>
+            <li>บทเรียนไวยากรณ์ (Grammar) แบ่งเนื้อหาตามระดับชั้น ตั้งแต่ประถมศึกษาจนถึงระดับมหาวิทยาลัย เพื่อให้เหมาะกับผู้เรียนแต่ละช่วงวัย</li>
+            <li>เกมการศึกษา (Game) แบบทดสอบวัดความรู้ทั้งด้าน Vocabulary และ Grammar เพื่อทบทวนความเข้าใจแบบโต้ตอบ</li>
+            <li>สื่อเสริมการเรียนรู้ (Watch &amp; Learn) แบ่งเนื้อหาเป็นตัวอย่างหนังและเพลง เพื่อฝึกทักษะการฟังจากเจ้าของภาษาจริง</li>
+            <li>ระบบติดตามความก้าวหน้า (Points &amp; Streak) เพื่อกระตุ้นให้ผู้ใช้เรียนรู้อย่างต่อเนื่องในระยะยาว</li>
+          </ul>
+        </div>
         <div class="card-stack">
           <span class="chip">C#</span>
           <span class="chip">.NET MAUI</span>
@@ -477,7 +509,7 @@
           <span class="chip">Visual Studio 2026</span>
         </div>
         <div class="card-links">
-          <a class="card-link" href="FlashCardApp__PROJECT.pdf" target="_blank" rel="noopener">ดูเอกสาร PDF →</a>
+          <a class="card-link" href="FlashCardApp__PROJECT.pdf" target="_blank" rel="noopener">View PDF →</a>
         </div>
       </div>
 
@@ -505,15 +537,19 @@
           <iframe width="100%" height="100%" src="https://www.youtube.com/embed/pRgleDbziqM" title="AI Health Screener & Lab Report Explainer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="display:block;"></iframe>
         </div>
 
-        <p>ระบบวิเคราะห์และอธิบายผลตรวจสุขภาพด้วย AI ที่ออกแบบมาเพื่อแก้ปัญหาผู้ใช้ทั่วไปที่ไม่สามารถอ่านและเข้าใจผลตรวจเลือดของตัวเองได้ เนื่องจากมีศัพท์ทางการแพทย์ที่ซับซ้อน (เช่น LDL, HDL) และไม่ทราบค่ามาตรฐานของแต่ละตัว ทำให้ต้องเสียเวลาค้นหาข้อมูลเองและอาจเข้าใจผิดพลาดได้ ระบบนี้เปลี่ยนขั้นตอนการตีความผลตรวจจากที่ต้องทำเองทั้งหมด ให้กลายเป็นระบบอัตโนมัติที่เข้าใจง่ายภายในไม่กี่วินาที โดยใช้ Gemini API อ่านค่าจากภาพผลตรวจโดยตรงแบบ Multimodal วิเคราะห์ค่าทางการแพทย์ด้วยกฎมาตรฐาน (Rule-based) แล้วให้ AI แปลผลเป็นภาษาที่คนทั่วไปเข้าใจได้ พร้อมคำแนะนำเบื้องต้น ตัวเว็บแอปพัฒนาและรันบน Google Colab แล้วเปิดให้เข้าถึงได้ผ่าน ngrok ช่วยลดเวลาและความซับซ้อนในการตีความข้อมูลด้วยตนเอง</p>
-        <ul class="feat-list">
-          <li>อัปโหลดภาพผลตรวจสุขภาพ แล้วให้ Gemini API อ่านและดึงข้อความ/ตัวเลขจากใบตรวจสุขภาพโดยตรงแบบ Multimodal โดยไม่ต้องผ่าน OCR แยกขั้นตอน</li>
-          <li>วิเคราะห์ค่าทางการแพทย์ (Glucose, Cholesterol, LDL, HDL) ด้วยกฎมาตรฐาน (Rule-based System) เพื่อเพิ่มความแม่นยำและความน่าเชื่อถือของผลวิเคราะห์</li>
-          <li>Gemini API แปลผลตรวจเป็นภาษาที่เข้าใจง่าย พร้อมคำแนะนำเบื้องต้น โดยดึงค่าตรวจและอธิบายผลเป็นภาษาที่คนทั่วไปเข้าใจได้</li>
-          <li>ออกแบบ Prompt Engineering เพื่อให้ AI อธิบายผลตรวจด้วยภาษาที่เข้าใจง่าย หลีกเลี่ยงศัพท์ทางการแพทย์ที่ซับซ้อน พร้อมสรุปความเสี่ยงสั้นๆ และคำแนะนำการดูแลเบื้องต้น</li>
-          <li>พัฒนาเป็นเว็บแอปรันบน Google Colab และเปิดให้เข้าถึงได้ผ่าน ngrok เพื่อทดสอบระบบแบบใช้งานจริง</li>
-          <li>จำกัดขอบเขตค่ามาตรฐานสุขภาพไว้ที่ 4 ค่าหลัก ได้แก่ Glucose, Cholesterol, LDL และ HDL เพื่อให้ระบบทำงานได้จริงและแม่นยำภายในเวลาที่กำหนด</li>
-        </ul>
+        <p>ระบบวิเคราะห์และอธิบายผลตรวจสุขภาพด้วย AI ช่วยให้ผู้ใช้ทั่วไปเข้าใจค่าตรวจเลือด (เช่น Glucose, Cholesterol, LDL, HDL) ได้ง่ายขึ้น โดยใช้ Gemini API อ่านและแปลผลจากภาพผลตรวจ พร้อมคำแนะนำเบื้องต้น</p>
+        <button class="read-more-btn" onclick="toggleProjectDetails(this)">Read More <span class="arrow">↓</span></button>
+        <div class="project-details">
+          <p>ระบบวิเคราะห์และอธิบายผลตรวจสุขภาพด้วย AI ที่ออกแบบมาเพื่อแก้ปัญหาผู้ใช้ทั่วไปที่ไม่สามารถอ่านและเข้าใจผลตรวจเลือดของตัวเองได้ เนื่องจากมีศัพท์ทางการแพทย์ที่ซับซ้อน (เช่น LDL, HDL) และไม่ทราบค่ามาตรฐานของแต่ละตัว ทำให้ต้องเสียเวลาค้นหาข้อมูลเองและอาจเข้าใจผิดพลาดได้ ระบบนี้เปลี่ยนขั้นตอนการตีความผลตรวจจากที่ต้องทำเองทั้งหมด ให้กลายเป็นระบบอัตโนมัติที่เข้าใจง่ายภายในไม่กี่วินาที โดยใช้ Gemini API อ่านค่าจากภาพผลตรวจโดยตรงแบบ Multimodal วิเคราะห์ค่าทางการแพทย์ด้วยกฎมาตรฐาน (Rule-based) แล้วให้ AI แปลผลเป็นภาษาที่คนทั่วไปเข้าใจได้ พร้อมคำแนะนำเบื้องต้น ตัวเว็บแอปพัฒนาและรันบน Google Colab แล้วเปิดให้เข้าถึงได้ผ่าน ngrok ช่วยลดเวลาและความซับซ้อนในการตีความข้อมูลด้วยตนเอง</p>
+          <ul class="feat-list">
+            <li>อัปโหลดภาพผลตรวจสุขภาพ แล้วให้ Gemini API อ่านและดึงข้อความ/ตัวเลขจากใบตรวจสุขภาพโดยตรงแบบ Multimodal โดยไม่ต้องผ่าน OCR แยกขั้นตอน</li>
+            <li>วิเคราะห์ค่าทางการแพทย์ (Glucose, Cholesterol, LDL, HDL) ด้วยกฎมาตรฐาน (Rule-based System) เพื่อเพิ่มความแม่นยำและความน่าเชื่อถือของผลวิเคราะห์</li>
+            <li>Gemini API แปลผลตรวจเป็นภาษาที่เข้าใจง่าย พร้อมคำแนะนำเบื้องต้น โดยดึงค่าตรวจและอธิบายผลเป็นภาษาที่คนทั่วไปเข้าใจได้</li>
+            <li>ออกแบบ Prompt Engineering เพื่อให้ AI อธิบายผลตรวจด้วยภาษาที่เข้าใจง่าย หลีกเลี่ยงศัพท์ทางการแพทย์ที่ซับซ้อน พร้อมสรุปความเสี่ยงสั้นๆ และคำแนะนำการดูแลเบื้องต้น</li>
+            <li>พัฒนาเป็นเว็บแอปรันบน Google Colab และเปิดให้เข้าถึงได้ผ่าน ngrok เพื่อทดสอบระบบแบบใช้งานจริง</li>
+            <li>จำกัดขอบเขตค่ามาตรฐานสุขภาพไว้ที่ 4 ค่าหลัก ได้แก่ Glucose, Cholesterol, LDL และ HDL เพื่อให้ระบบทำงานได้จริงและแม่นยำภายในเวลาที่กำหนด</li>
+          </ul>
+        </div>
         <div class="card-stack">
           <span class="chip">Gemini API</span>
           <span class="chip">Google Colab</span>
@@ -522,7 +558,7 @@
           <span class="chip">Prompt Engineering</span>
         </div>
         <div class="card-links">
-          <a class="card-link" href="Health%20Screener%20%26%20Lab%20Report%20Explainer.pdf" target="_blank" rel="noopener">ดูเอกสาร PDF →</a>
+          <a class="card-link" href="Health%20Screener%20%26%20Lab%20Report%20Explainer.pdf" target="_blank" rel="noopener">View PDF →</a>
         </div>
       </div>
 
@@ -545,7 +581,11 @@
         <video controls style="width:100%; aspect-ratio:16/9; border-radius:6px; margin-bottom:16px; background:#000;">
           <source src="Focus%20Monitoring%20System.mp4" type="video/mp4">
         </video>
-        <p>ระบบตรวจจับสมาธิของผู้ใช้งานที่ใช้เซนเซอร์วัดแสง การเคลื่อนไหว และเสียงรอบตัว เพื่อประเมินว่าสภาพแวดล้อมในขณะนั้นเหมาะสมต่อการมีสมาธิหรือไม่ หากระบบตรวจพบว่าแสงในห้องน้อยเกินไป มีการเคลื่อนไหวรบกวน และมีเสียงดังพร้อมกันในช่วงเวลาเดียวกัน จะถือว่าสภาพแวดล้อมไม่เอื้อต่อการโฟกัส และแจ้งเตือนผู้ใช้ทันทีผ่าน LED และ Buzzer เพื่อให้รู้ตัวและปรับสภาพแวดล้อมได้ทันเวลา นอกจากนี้ระบบยังส่งข้อมูลที่ตรวจวัดได้ขึ้น Cloud อย่างต่อเนื่อง เพื่อนำไปวิเคราะห์แนวโน้มและแสดงผลผ่าน Dashboard แบบเรียลไทม์ ทั้งบนมือถือและเว็บ ทำให้ผู้ใช้สามารถย้อนดูช่วงเวลาที่มีสมาธิดีหรือไม่ดีในแต่ละวันได้ เพื่อวางแผนปรับพฤติกรรมการทำงานหรือการเรียนให้มีประสิทธิภาพมากขึ้น</p>
+        <p>ระบบตรวจจับสมาธิของผู้ใช้งาน ใช้เซนเซอร์วัดแสง การเคลื่อนไหว และเสียงรอบตัว เพื่อประเมินสภาพแวดล้อมและแจ้งเตือนเมื่อไม่เหมาะสมต่อการมีสมาธิ พร้อมแสดงผลผ่าน Dashboard แบบเรียลไทม์</p>
+        <button class="read-more-btn" onclick="toggleProjectDetails(this)">Read More <span class="arrow">↓</span></button>
+        <div class="project-details">
+          <p>ระบบตรวจจับสมาธิของผู้ใช้งานที่ใช้เซนเซอร์วัดแสง การเคลื่อนไหว และเสียงรอบตัว เพื่อประเมินว่าสภาพแวดล้อมในขณะนั้นเหมาะสมต่อการมีสมาธิหรือไม่ หากระบบตรวจพบว่าแสงในห้องน้อยเกินไป มีการเคลื่อนไหวรบกวน และมีเสียงดังพร้อมกันในช่วงเวลาเดียวกัน จะถือว่าสภาพแวดล้อมไม่เอื้อต่อการโฟกัส และแจ้งเตือนผู้ใช้ทันทีผ่าน LED และ Buzzer เพื่อให้รู้ตัวและปรับสภาพแวดล้อมได้ทันเวลา นอกจากนี้ระบบยังส่งข้อมูลที่ตรวจวัดได้ขึ้น Cloud อย่างต่อเนื่อง เพื่อนำไปวิเคราะห์แนวโน้มและแสดงผลผ่าน Dashboard แบบเรียลไทม์ ทั้งบนมือถือและเว็บ ทำให้ผู้ใช้สามารถย้อนดูช่วงเวลาที่มีสมาธิดีหรือไม่ดีในแต่ละวันได้ เพื่อวางแผนปรับพฤติกรรมการทำงานหรือการเรียนให้มีประสิทธิภาพมากขึ้น</p>
+        </div>
         <div class="card-stack">
           <span class="chip">C++</span>
           <span class="chip">ESP32</span>
@@ -553,7 +593,7 @@
           <span class="chip">Groq AI API</span>
         </div>
         <div class="card-links">
-          <a class="card-link" href="Focus_Monitoring_System.pdf" target="_blank" rel="noopener">ดูเอกสาร PDF →</a>
+          <a class="card-link" href="Focus_Monitoring_System.pdf" target="_blank" rel="noopener">View PDF →</a>
         </div>
       </div>
 
@@ -573,7 +613,11 @@
         <video controls style="width:100%; aspect-ratio:16/9; border-radius:6px; margin-bottom:16px; background:#000;">
           <source src="Smart%20Refrigerator%20Door%20Alert%20.mp4" type="video/mp4">
         </video>
-        <p>ระบบแจ้งเตือนการลืมปิดประตูตู้เย็นที่ใช้เซนเซอร์วัดแสงร่วมกับเซนเซอร์วัดระยะ (Ultrasonic Sensor) เพื่อตรวจจับว่าประตูตู้เย็นถูกเปิดทิ้งไว้นานเกินไปหรือไม่ โดยเซนเซอร์วัดระยะจะคอยตรวจสอบตำแหน่งของประตู ในขณะที่เซนเซอร์วัดแสงช่วยยืนยันสถานะการเปิด-ปิดให้แม่นยำยิ่งขึ้น หากตรวจพบว่าประตูเปิดค้างต่อเนื่องเกิน 5 วินาที ระบบจะแจ้งเตือนผู้ใช้ทันทีผ่าน LED และเสียง Buzzer เพื่อป้องกันไม่ให้อาหารเสียหรือสิ้นเปลืองพลังงานไฟฟ้าโดยไม่จำเป็น และเมื่อผู้ใช้ปิดประตูหรือรับทราบการแจ้งเตือนแล้ว สามารถกดปุ่มรีเซ็ตเพื่อหยุดการแจ้งเตือนและให้ระบบกลับไปตรวจจับสถานะตามปกติ</p>
+        <p>ระบบแจ้งเตือนการลืมปิดประตูตู้เย็น ใช้เซนเซอร์วัดแสงร่วมกับเซนเซอร์วัดระยะตรวจจับประตูที่เปิดค้างนานเกินไป แล้วแจ้งเตือนทันทีด้วย LED และ Buzzer</p>
+        <button class="read-more-btn" onclick="toggleProjectDetails(this)">Read More <span class="arrow">↓</span></button>
+        <div class="project-details">
+          <p>ระบบแจ้งเตือนการลืมปิดประตูตู้เย็นที่ใช้เซนเซอร์วัดแสงร่วมกับเซนเซอร์วัดระยะ (Ultrasonic Sensor) เพื่อตรวจจับว่าประตูตู้เย็นถูกเปิดทิ้งไว้นานเกินไปหรือไม่ โดยเซนเซอร์วัดระยะจะคอยตรวจสอบตำแหน่งของประตู ในขณะที่เซนเซอร์วัดแสงช่วยยืนยันสถานะการเปิด-ปิดให้แม่นยำยิ่งขึ้น หากตรวจพบว่าประตูเปิดค้างต่อเนื่องเกิน 5 วินาที ระบบจะแจ้งเตือนผู้ใช้ทันทีผ่าน LED และเสียง Buzzer เพื่อป้องกันไม่ให้อาหารเสียหรือสิ้นเปลืองพลังงานไฟฟ้าโดยไม่จำเป็น และเมื่อผู้ใช้ปิดประตูหรือรับทราบการแจ้งเตือนแล้ว สามารถกดปุ่มรีเซ็ตเพื่อหยุดการแจ้งเตือนและให้ระบบกลับไปตรวจจับสถานะตามปกติ</p>
+        </div>
         <div class="card-stack">
           <span class="chip">C++</span>
           <span class="chip">ESP32</span>
@@ -581,7 +625,7 @@
           <span class="chip">Arduino IDE</span>
         </div>
         <div class="card-links">
-          <a class="card-link" href="Smart%20Refrigerator%20Door%20Alert.pdf" target="_blank" rel="noopener">ดูเอกสาร PDF →</a>
+          <a class="card-link" href="Smart%20Refrigerator%20Door%20Alert.pdf" target="_blank" rel="noopener">View PDF →</a>
         </div>
       </div>
 
@@ -593,57 +637,46 @@
 <section id="skills">
   <div class="wrap">
     <h2 data-reveal style="font-size: clamp(2rem, 4vw, 2.6rem);">Technical Skills</h2>
-    <div class="skills-grid">
-      <div class="skill-group">
-        <h3>Programming Languages</h3>
-        <div class="gauge" data-reveal>
-          <div class="gauge-label"><span>C#</span><span class="lvl">20%</span></div>
-          <div class="gauge-track"><div class="gauge-fill" style="--w:20%"></div></div>
+    <div class="skills-flex-grid">
+      <div class="skill-box-card" data-reveal>
+        <div class="sub-h" style="margin-top:0;">Programming Languages</div>
+        <div class="taglist" style="margin-bottom:0;">
+          <span class="chip">C#</span>
+          <span class="chip">Python</span>
         </div>
       </div>
-      <div class="skill-group">
-        <h3>Frameworks</h3>
-        <div class="gauge" data-reveal>
-          <div class="gauge-label"><span>.NET MAUI</span><span class="lvl">30%</span></div>
-          <div class="gauge-track"><div class="gauge-fill" style="--w:30%"></div></div>
-        </div>
-      </div>
-      <div class="skill-group">
-        <h3>Database</h3>
-        <div class="gauge" data-reveal>
-          <div class="gauge-label"><span>SQLite</span><span class="lvl">20%</span></div>
-          <div class="gauge-track"><div class="gauge-fill" style="--w:20%"></div></div>
-        </div>
-      </div>
-    </div>
 
-    <div class="sub-h" data-reveal>Tools</div>
-    <div class="skills-grid">
-      <div class="skill-group">
-        <div class="gauge" data-reveal>
-          <div class="gauge-label"><span>GitHub</span><span class="lvl">20%</span></div>
-          <div class="gauge-track"><div class="gauge-fill" style="--w:20%"></div></div>
-        </div>
-        <div class="gauge" data-reveal>
-          <div class="gauge-label"><span>Visual Studio</span><span class="lvl">40%</span></div>
-          <div class="gauge-track"><div class="gauge-fill" style="--w:40%"></div></div>
+      <div class="skill-box-card" data-reveal>
+        <div class="sub-h" style="margin-top:0;">Frameworks</div>
+        <div class="taglist" style="margin-bottom:0;">
+          <span class="chip">.NET MAUI</span>
         </div>
       </div>
-      <div class="skill-group">
-        <div class="gauge" data-reveal>
-          <div class="gauge-label"><span>Arduino IDE</span><span class="lvl">30%</span></div>
-          <div class="gauge-track"><div class="gauge-fill" style="--w:30%"></div></div>
-        </div>
-        <div class="gauge" data-reveal>
-          <div class="gauge-label"><span>Figma</span><span class="lvl">60%</span></div>
-          <div class="gauge-track"><div class="gauge-fill" style="--w:60%"></div></div>
-        </div>
-      </div>
-    </div>
 
-    <div class="sub-h" data-reveal>Interests</div>
-    <div class="taglist" data-reveal-group>
-      <span class="chip">Data Analytics</span>
+      <div class="skill-box-card" data-reveal>
+        <div class="sub-h" style="margin-top:0;">Database</div>
+        <div class="taglist" style="margin-bottom:0;">
+          <span class="chip">SQLite</span>
+        </div>
+      </div>
+
+      <div class="skill-box-card" data-reveal>
+        <div class="sub-h" style="margin-top:0;">Tools</div>
+        <div class="taglist" style="margin-bottom:0;">
+          <span class="chip">GitHub</span>
+          <span class="chip">Visual Studio</span>
+          <span class="chip">Visual Studio Code</span>
+          <span class="chip">Arduino IDE</span>
+          <span class="chip">Figma</span>
+        </div>
+      </div>
+
+      <div class="skill-box-card" data-reveal>
+        <div class="sub-h" style="margin-top:0;">Interests</div>
+        <div class="taglist" style="margin-bottom:0;">
+          <span class="chip">Data Analytics</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -705,6 +738,15 @@
   const links = document.getElementById('navlinks');
   toggle.addEventListener('click', () => links.classList.toggle('open'));
   links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  // ---- Read more / less for project descriptions ----
+  function toggleProjectDetails(btn){
+    const card = btn.closest('.card');
+    const expanded = card.classList.toggle('expanded');
+    btn.innerHTML = expanded
+      ? 'Read Less <span class="arrow">↓</span>'
+      : 'Read More <span class="arrow">↓</span>';
+  }
 
   // ---- Scroll reveal ----
   const revealTargets = document.querySelectorAll('[data-reveal], [data-reveal-group]');
